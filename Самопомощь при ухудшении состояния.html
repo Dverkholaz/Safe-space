@@ -1,0 +1,611 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Самопомощь при ухудшении состояния</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Onest:wght@400;500;600&display=swap">
+<style>
+/* Layout: компактная колонка, пять шагов по возрастающей (от «помогаю себе сам(а)» к «зову на помощь») на вертикальной линии. Пастель: каждому шагу свой мягкий оттенок. Одна светлая тема сознательно. */
+:root {
+  color-scheme: light;
+  --bg: #F6F7FB;
+  --surface: #FFFFFF;
+  --fg: #2B3440;
+  --muted: #667284;
+  --accent: #46688C;
+  --line: #E2E8F0;
+  --warm-bg: #FCEDE8;
+  --warm-fg: #84463A;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "Onest", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 14.5px; line-height: 1.5;
+  padding-block: 22px 36px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; font-weight: 600; line-height: 1.25; }
+p { margin: 0; }
+
+header { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+h1 { font-size: clamp(22px, 5vw, 28px); }
+.lead { color: var(--muted); max-width: 62ch; }
+
+.urgent {
+  background: var(--warm-bg); color: var(--warm-fg);
+  border-radius: 12px; padding: 10px 14px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;
+}
+.urgent strong { font-family: var(--font-display); font-size: 19px; }
+.urgent span { flex: 1 1 240px; min-width: 0; }
+
+.howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.howto div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 13px; line-height: 1.4; min-width: 0; }
+.howto b { display: block; color: var(--accent); font-weight: 600; margin-bottom: 1px; }
+
+/* сворачиваемые примеры */
+summary { list-style: none; cursor: pointer; }
+summary::-webkit-details-marker { display: none; }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.chev {
+  width: 6px; height: 6px; flex: none; margin-top: -3px;
+  border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg); transition: transform .2s ease;
+}
+.ex[open] > summary .chev { transform: rotate(225deg); margin-top: 3px; }
+.ex > summary { display: flex; align-items: center; gap: 7px; width: fit-content; font-size: 12px; color: var(--muted); padding: 1px 0; }
+.ex > summary:hover { color: var(--accent); }
+.ex .chips { margin-top: 6px; }
+
+/* ступени */
+.steps { display: flex; flex-direction: column; gap: 20px; }
+.step { position: relative; --tint: #E6EFFA; --tint-strong: #BFD6F0; }
+.step:nth-child(2) { --tint: #E3F4EB; --tint-strong: #B9E2CC; }
+.step:nth-child(3) { --tint: #FCEBDD; --tint-strong: #F3CFB1; }
+.step:nth-child(4) { --tint: #ECE8F9; --tint-strong: #D0C6EE; }
+.step:nth-child(5) { --tint: #FBE6EC; --tint-strong: #EFBDCA; }
+.step::before { content: ""; position: absolute; left: 15px; top: 36px; bottom: -20px; width: 2px; background: var(--line); }
+.step:last-child::before { display: none; }
+.step-top { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 0 12px; align-items: start; }
+.num {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--tint-strong); color: var(--fg);
+  display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: 16px;
+}
+.step-head { display: flex; flex-direction: column; gap: 2px; padding-top: 3px; min-width: 0; }
+.step-head h2 { font-size: 17px; }
+.step-head p { color: var(--muted); font-size: 13px; max-width: 64ch; }
+.step-body { display: flex; flex-direction: column; gap: 10px; margin-left: 44px; padding-top: 10px; min-width: 0; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.card { background: var(--surface); border: 1px solid var(--tint-strong); border-radius: 12px; padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card h3 { font-size: 15px; }
+.hint { color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+label.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+textarea, input[type="text"] {
+  width: 100%; font: inherit; font-size: 14px; color: var(--fg);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px;
+}
+textarea { min-height: 62px; resize: vertical; field-sizing: content; line-height: 1.45; }
+textarea::placeholder, input::placeholder { color: var(--muted); opacity: .75; }
+textarea:focus-visible, input:focus-visible, .chip:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  font: inherit; font-size: 12px; line-height: 1.3; color: var(--fg); background: var(--tint);
+  border: 0; border-radius: 999px; padding: 3px 9px; cursor: pointer; text-align: left;
+}
+.chip:hover { background: var(--tint-strong); }
+.chip::before { content: "+ "; opacity: .6; }
+.chip.static { cursor: default; }
+.chip.static:hover { background: var(--tint); }
+.chip.static::before { content: none; }
+
+.person { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; }
+.person-title { font-size: 12.5px; font-weight: 600; color: var(--accent); }
+
+/* телефоны */
+.help { display: flex; flex-direction: column; gap: 8px; }
+.help h2 { font-size: 17px; }
+.groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 8px; align-items: start; }
+.group { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 12px 4px; }
+.group h3 { font-size: 13.5px; font-family: var(--font-body); font-weight: 600; color: var(--accent); padding: 9px 0 4px; }
+.row { display: flex; justify-content: space-between; gap: 2px 14px; flex-wrap: wrap; padding: 6px 0; border-top: 1px solid var(--line); font-size: 13px; line-height: 1.4; }
+.row .who { flex: 1 1 180px; min-width: 0; }
+.row .tel { font-variant-numeric: tabular-nums; font-weight: 500; display: flex; flex-direction: column; gap: 1px; }
+.row .tel a { color: var(--fg); text-decoration: none; border-bottom: 1px dotted var(--muted); width: fit-content; }
+.row .tel a:hover { color: var(--accent); }
+
+footer { color: var(--muted); font-size: 12px; }
+
+@media (max-width: 480px) {
+  body { padding-block: 16px 28px; }
+  .step-body { margin-left: 0; }
+  .step::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* строки с людьми и местами */
+.rows { display: flex; flex-direction: column; gap: 6px; }
+.rowline { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px; }
+.rowline:has(.rm) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
+.rm { font: inherit; font-size: 16px; line-height: 1; width: 30px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 8px; cursor: pointer; }
+.rm:hover { color: var(--warm-fg); border-color: var(--warm-fg); }
+.add { font: inherit; font-size: 12.5px; color: var(--accent); background: transparent; border: 1px dashed var(--tint-strong); border-radius: 8px; padding: 5px 10px; align-self: flex-start; cursor: pointer; }
+.add:hover { background: var(--tint); }
+.rm:focus-visible, .add:focus-visible, .tool:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card h3 + .rows { margin-top: -2px; }
+.card .add + h3 { margin-top: 6px; }
+
+.steps { margin-block: 12px; }
+body.compact .steps { margin-block: 0; }
+
+/* кнопки сверху */
+.tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool { font: inherit; font-size: 13px; color: var(--accent); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.tool:hover { border-color: var(--accent); }
+.tool[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+#copy-fallback { display: flex; flex-direction: column; gap: 6px; }
+#copy-fallback[hidden] { display: none; }
+#copy-out { min-height: 120px; }
+
+/* компактный вид для скриншота */
+body.compact .howto, body.compact .hint, body.compact .step-head p, body.compact .ex, body.compact .lead, body.compact footer, body.compact .add { display: none; }
+body.compact .page { gap: 10px; }
+body.compact .steps { gap: 12px; }
+body.compact .step::before { display: none; }
+body.compact .step-body { padding-top: 6px; }
+body.compact textarea { min-height: 40px; }
+
+/* широкий экран: шаги в две колонки, чтобы всё помещалось на один экран */
+@media (min-width: 900px) {
+  .page { max-width: 1120px; }
+  .steps { display: block; column-count: 2; column-gap: 28px; }
+  .step { break-inside: avoid; margin-bottom: 20px; }
+  .step::before { display: none; }
+  .step-body { margin-left: 0; }
+  .grid { grid-template-columns: 1fr; }
+  .howto { grid-template-columns: repeat(3, 1fr); }
+  .groups { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* печать и PDF */
+@media print {
+  @page { size: A4; margin: 10mm; }
+  body { background: #fff; font-size: 10.5px; padding: 0; }
+  .page { max-width: none; gap: 10px; }
+  .tools, #copy-fallback, .howto, .ex, .add, .rm, footer { display: none !important; }
+  .steps { display: block; column-count: 2; column-gap: 18px; }
+  .step { break-inside: avoid; margin-bottom: 12px; }
+  .step::before { display: none; }
+  .step-body { margin-left: 0; }
+  .grid { grid-template-columns: 1fr; }
+  .groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .group, .card { break-inside: avoid; }
+  textarea { min-height: 44px; }
+}
+</style>
+
+<div class="page">
+  <header>
+    <span class="eyebrow">Мой план безопасности</span>
+    <h1>Самопомощь при ухудшении состояния</h1>
+    <p class="lead">Этот план я заполняю в спокойный момент, чтобы в кризисной ситуации мне не нужно было ничего придумывать.</p>
+  </header>
+
+  <div class="tools">
+    <button type="button" id="btn-copy" class="tool">Скопировать план как текст</button>
+    <button type="button" id="btn-compact" class="tool" aria-pressed="false">Компактный вид</button>
+  </div>
+  <p id="save-status" class="hint"></p>
+  <div id="copy-fallback" hidden>
+    <p class="hint">Браузер не дал скопировать сам. Выделите текст ниже и скопируйте его вручную.</p>
+    <textarea id="copy-out" readonly rows="8"></textarea>
+  </div>
+
+  <div class="urgent" role="note">
+    <strong>112</strong>
+    <span>Если прямо сейчас я в ситуации, угрожающей моей жизни и здоровью — звоню 112 или иду в ближайшую больницу.<br>Другие телефоны доверия собраны внизу страницы.</span>
+  </div>
+
+  <div class="howto">
+    <div><b>Подсказки</b>Раскройте «Например» под полем и нажмите на пример: он добавится в запись. Потом его можно изменить.</div>
+    <div><b>Где хранить</b>Сделайте скриншот или сохраните в заметках телефона, чтобы план был под рукой.</div>
+    <div><b>Приватность</b>Записи на странице хранятся только в этом браузере и никуда не отправляются.</div>
+  </div>
+
+  <div class="steps">
+
+    <!-- Шаг 1 -->
+    <section class="step">
+      <div class="step-top">
+        <div class="num" aria-hidden="true">1</div>
+        <div class="step-head">
+          <h2>Первичные признаки ухудшения</h2>
+          <p>Мои личные сигналы тревоги. Чем раньше я замечаю сигнал, тем больше у меня вариантов, что сделать. Пишу своими словами.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="grid">
+          <div class="card">
+            <h3>Триггерные ситуации</h3>
+            <p class="hint">Что обычно запускает ухудшение: события, обстоятельства, время.</p>
+            <label class="sr" for="f-trig">Триггерные ситуации</label>
+            <textarea id="f-trig" placeholder="Например, вечер в одиночестве"></textarea>
+            <details class="ex">
+              <summary><span>Например</span><span class="chev" aria-hidden="true"></span></summary>
+              <div class="chips" data-for="f-trig">
+              <button class="chip" type="button">ссора с близким</button>
+              <button class="chip" type="button">одиночество вечером или в выходные</button>
+              <button class="chip" type="button">критика на работе или учёбе</button>
+              <button class="chip" type="button">чувство «я не справился»</button>
+              <button class="chip" type="button">годовщины и воспоминания</button>
+              <button class="chip" type="button">недосып</button>
+              <button class="chip" type="button">алкоголь</button>
+              <button class="chip" type="button">долгая лента соцсетей</button>
+              <button class="chip" type="button">денежные трудности</button>
+              <button class="chip" type="button">расставание или потеря</button>
+              </div>
+            </details>
+          </div>
+          <div class="card">
+            <h3>Мысли</h3>
+            <p class="hint">Какие мысли появляются, когда становится хуже. Можно дословно.</p>
+            <label class="sr" for="f-thoughts">Мысли</label>
+            <textarea id="f-thoughts" placeholder="Например, «ничего не изменится»"></textarea>
+            <details class="ex">
+              <summary><span>Например</span><span class="chev" aria-hidden="true"></span></summary>
+              <div class="chips" data-for="f-thoughts">
+              <button class="chip" type="button">«я всем в тягость»</button>
+              <button class="chip" type="button">«ничего никогда не изменится»</button>
+              <button class="chip" type="button">«я ни на что не гожусь»</button>
+              <button class="chip" type="button">«лучше бы меня не было»</button>
+              <button class="chip" type="button">«я больше не выдержу»</button>
+              <button class="chip" type="button">мысли крутятся по кругу</button>
+              </div>
+            </details>
+          </div>
+          <div class="card">
+            <h3>Эмоции и ощущения</h3>
+            <p class="hint">Что я чувствую и какие ощущения есть в теле.</p>
+            <label class="sr" for="f-feel">Эмоции и ощущения</label>
+            <textarea id="f-feel" placeholder="Например, тяжесть в груди"></textarea>
+            <details class="ex">
+              <summary><span>Например</span><span class="chev" aria-hidden="true"></span></summary>
+              <div class="chips" data-for="f-feel">
+              <button class="chip" type="button">опустошённость, безнадёжность</button>
+              <button class="chip" type="button">острая тоска или раздражение</button>
+              <button class="chip" type="button">вина, стыд</button>
+              <button class="chip" type="button">ощущение, что всё нереально</button>
+              <button class="chip" type="button">ком в горле, тяжесть в груди</button>
+              <button class="chip" type="button">постоянная усталость</button>
+              <button class="chip" type="button">слёзы без причины</button>
+              </div>
+            </details>
+          </div>
+          <div class="card">
+            <h3>Поведение</h3>
+            <p class="hint">Что меняется в моих действиях. Что заметили бы другие люди, наблюдающие со стороны.</p>
+            <label class="sr" for="f-behav">Поведение</label>
+            <textarea id="f-behav" placeholder="Например, не отвечаю на сообщения"></textarea>
+            <details class="ex">
+              <summary><span>Например</span><span class="chev" aria-hidden="true"></span></summary>
+              <div class="chips" data-for="f-behav">
+              <button class="chip" type="button">закрываюсь, не отвечаю на сообщения</button>
+              <button class="chip" type="button">не могу встать с кровати</button>
+              <button class="chip" type="button">не ем или переедаю</button>
+              <button class="chip" type="button">много сплю или почти не сплю</button>
+              <button class="chip" type="button">бросаю привычные дела</button>
+              <button class="chip" type="button">больше пью</button>
+              <button class="chip" type="button">раздаю вещи, прощаюсь «на всякий случай»</button>
+              <button class="chip" type="button">часами сижу в телефоне</button>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Шаг 2 -->
+    <section class="step">
+      <div class="step-top">
+        <div class="num" aria-hidden="true">2</div>
+        <div class="step-head">
+          <h2>Шаги самопомощи</h2>
+          <p>Что я могу сделать, чтобы помочь себе улучшить самочувствие. В момент эмоционального накала важно организовать для себя безопасное пространство, в котором можно переждать, пока волна эмоции пройдёт свой пик и пойдёт на спад. Выбираю простые действия, на которые хватит сил даже в плохой день.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="grid">
+          <div class="card">
+            <h3>Что уже помогало раньше</h3>
+            <p class="hint">Из моего опыта: что снижало напряжение хотя бы на 10–20 минут.</p>
+            <label class="sr" for="f-worked">Что уже помогало</label>
+            <textarea id="f-worked" placeholder="Например, тёплый душ"></textarea>
+            <details class="ex">
+              <summary><span>Например</span><span class="chev" aria-hidden="true"></span></summary>
+              <div class="chips" data-for="f-worked">
+              <button class="chip" type="button">тёплый душ</button>
+              <button class="chip" type="button">прогулка вокруг дома</button>
+              <button class="chip" type="button">любимый плейлист в наушниках</button>
+              <button class="chip" type="button">чай и плед</button>
+              <button class="chip" type="button">выписать всё, что в голове</button>
+              <button class="chip" type="button">посмотреть фото, где мне хорошо</button>
+              <button class="chip" type="button">побыть с питомцем</button>
+              <button class="chip" type="button">знакомый уютный фильм</button>
+              </div>
+            </details>
+          </div>
+          <div class="card">
+            <h3>Что новое можно попробовать</h3>
+            <p class="hint">Идеи, которые я ещё не проверял(а). Пробую в спокойное время, чтобы знать, что подходит.</p>
+            <label class="sr" for="f-new">Что можно попробовать</label>
+            <textarea id="f-new" placeholder="Например, дыхание 4–6"></textarea>
+            <details class="ex">
+              <summary><span>Например</span><span class="chev" aria-hidden="true"></span></summary>
+              <div class="chips" data-for="f-new">
+              <button class="chip" type="button">дыхание: вдох на 4 счёта, выдох на 6, 5–10 раз</button>
+              <button class="chip" type="button">«5-4-3-2-1»: 5 предметов, 4 звука, 3 прикосновения, 2 запаха, 1 вкус</button>
+              <button class="chip" type="button">записать мысль и ответить на неё, как другу</button>
+              <button class="chip" type="button">растяжка или быстрая ходьба по лестнице</button>
+              <button class="chip" type="button">выйти на балкон или во двор</button>
+              <button class="chip" type="button">отложить решения до утра</button>
+              <button class="chip" type="button">выпить воды, поесть, принять назначенные лекарства</button>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Шаг 3 -->
+    <section class="step">
+      <div class="step-top">
+        <div class="num" aria-hidden="true">3</div>
+        <div class="step-head">
+          <h2>Люди и места, которые помогают отвлечься</h2>
+          <p>С этими людьми и в этих местах необязательно говорить о своём состоянии. Достаточно побыть рядом, чтобы переключиться.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="card">
+          <h3>Люди</h3>
+          <div class="rows" data-list="distract-people" data-min="2" data-ph1="Имя" data-ph2="Контакты"></div>
+          <button class="add" type="button" data-add="distract-people">+ Добавить человека</button>
+          <h3>Места</h3>
+          <div class="rows" data-list="distract-places" data-min="2" data-ph1="Название" data-ph2="Контакты"></div>
+          <button class="add" type="button" data-add="distract-places">+ Добавить место</button>
+          <details class="ex">
+            <summary><span>Кого и что можно выбрать</span><span class="chev" aria-hidden="true"></span></summary>
+            <div class="chips">
+              <span class="chip static">друг, с которым легко болтать</span>
+              <span class="chip static">коллега или сосед</span>
+              <span class="chip static">кафе или библиотека</span>
+              <span class="chip static">парк, набережная</span>
+              <span class="chip static">спортзал, бассейн</span>
+              <span class="chip static">любимая лавочка</span>
+            </div>
+          </details>
+          <p class="hint">Можно написать коротко: «Привет! Можно я зайду к тебе или поболтаем? Не хочу сейчас быть один/одна». Объяснять причину необязательно.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Шаг 4 -->
+    <section class="step">
+      <div class="step-top">
+        <div class="num" aria-hidden="true">4</div>
+        <div class="step-head">
+          <h2>Люди, с которыми я могу поделиться переживаниями</h2>
+          <p>Люди, с которыми можно поделиться своим состоянием. Тот, кто сможет выслушать, побыть рядом или помочь получить помощь. Можно заранее предупредить, что я могу обратиться к ней/нему за помощью.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="card">
+          <div class="rows" data-list="crisis-people" data-min="2" data-ph1="Имя" data-ph2="Контакты"></div>
+          <button class="add" type="button" data-add="crisis-people">+ Добавить человека</button>
+          <details class="ex">
+            <summary><span>Кого можно выбрать</span><span class="chev" aria-hidden="true"></span></summary>
+            <div class="chips">
+              <span class="chip static">близкий друг или партнёр</span>
+              <span class="chip static">родственник, которому доверяю</span>
+              <span class="chip static">психолог или лечащий врач</span>
+              <span class="chip static">участник группы поддержки</span>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Шаг 5 -->
+    <section class="step">
+      <div class="step-top">
+        <div class="num" aria-hidden="true">5</div>
+        <div class="step-head">
+          <h2>Как обезопасить пространство вокруг себя</h2>
+          <p>Кризисные моменты проходят. Чем труднее в такой момент навредить себе, тем больше времени дождаться облегчения. Это забота о себе, а не недоверие себе.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="card">
+          <label class="sr" for="f-safe">Как я обезопашу пространство</label>
+          <textarea id="f-safe" placeholder="1.&#10;2.&#10;3."></textarea>
+          <details class="ex">
+            <summary><span>Например</span><span class="chev" aria-hidden="true"></span></summary>
+            <div class="chips" data-for="f-safe">
+            <button class="chip" type="button">убрать подальше или отдать на хранение близкому то, чем могу себе навредить</button>
+            <button class="chip" type="button">хранить лекарства в ограниченном количестве, договориться с врачом или близким</button>
+            <button class="chip" type="button">не оставаться одному/одной: поехать к человеку из шага 4</button>
+            <button class="chip" type="button">не употреблять алкоголь и другие вещества</button>
+            <button class="chip" type="button">уйти туда, где есть люди</button>
+            <button class="chip" type="button">держать телефон заряженным, номера из плана под рукой</button>
+            </div>
+          </details>
+          <p class="hint">Записываю только то, что реально могу сделать. Если нужна помощь, обращаюсь к человеку из шага 4.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="help" aria-labelledby="hl">
+    <h2 id="hl">Телефоны доверия и помощь</h2>
+    <p class="hint">Если нужно поговорить прямо сейчас — круглосуточно, анонимно, бесплатно. При угрозе жизни звоню 112.</p>
+
+    <div class="groups">
+      <div class="group">
+        <h3>Поговорить прямо сейчас</h3>
+        
+        <div class="row"><span class="who">Психологическая помощь МЧС России</span><span class="tel"><a href="tel:+74959895050">+7 (495) 989-50-50</a></span></div>
+      </div>
+
+      <div class="group">
+        <h3>Для детей, подростков и родителей</h3>
+        <div class="row"><span class="who">Телефон доверия для детей и их родителей</span><span class="tel"><a href="tel:88002000122">8 (800) 200-01-22</a></span></div>
+        <div class="row"><span class="who">Экстренная психологическая помощь для детей и взрослых, Институт «Гармония»</span><span class="tel"><a href="tel:+78127084041">+7 (812) 708-40-41</a></span></div>
+      </div>
+
+      <div class="group">
+        <h3>Если невозможно говорить напрямую</h3>
+        <div class="row"><span class="who">Психологическая помощь в переписке</span><span class="tel"><a href="https://t.me/PsyFirstlineBot" target="_blank" rel="noopener">t.me/PsyFirstlineBot</a></span></div>
+      </div>
+
+      <div class="group">
+        <h3>Если нужна медицинская помощь</h3>
+        <div class="row"><span class="who">Научно-практический центр психического здоровья детей и подростков имени Г.Е. Сухаревой</span><span class="tel"><a href="tel:88002220557">8 (800) 222-05-57</a></span></div>
+        <div class="row"><span class="who">Психиатрическая клиническая больница № 1 им. Н.А. Алексеева</span><span class="tel"><a href="tel:+74959528421">+7 (495) 952-84-21</a><a href="tel:+74959528369">+7 (495) 952-83-69</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Записи на странице сохраняются только в этом браузере.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var KEY = "safety-plan:";
+  function get(k) { try { return localStorage.getItem(KEY + k); } catch (e) { return null; } }
+  var saveOk = true, statusEl = document.getElementById("save-status");
+  function say() { if (statusEl) statusEl.textContent = saveOk ? "Записи сохраняются на этом устройстве, даже если закрыть вкладку." : "Этот браузер не сохраняет записи. Чтобы ничего не потерять, нажмите «Скопировать план как текст»."; }
+  function put(k, v) { try { localStorage.setItem(KEY + k, v); if (!saveOk) { saveOk = true; say(); } } catch (e) { saveOk = false; say(); } }
+  (function probe() { try { localStorage.setItem(KEY + "probe", "1"); localStorage.removeItem(KEY + "probe"); } catch (e) { saveOk = false; } say(); })();
+
+  /* обычные поля */
+  document.querySelectorAll("textarea[id]:not([readonly])").forEach(function (el) {
+    var v = get(el.id); if (v !== null) el.value = v;
+    el.addEventListener("input", function () { put(el.id, el.value); });
+  });
+
+  /* примеры добавляются в запись */
+  document.querySelectorAll(".chips[data-for]").forEach(function (box) {
+    var target = document.getElementById(box.getAttribute("data-for"));
+    box.addEventListener("click", function (ev) {
+      var chip = ev.target.closest(".chip");
+      if (!chip || !target || chip.classList.contains("static")) return;
+      var text = chip.textContent.trim();
+      target.value = target.value.trim() ? target.value.replace(/\s+$/, "") + "\n• " + text : "• " + text;
+      put(target.id, target.value);
+      target.focus();
+    });
+  });
+
+  /* списки людей и мест с кнопкой «Добавить» */
+  document.querySelectorAll(".rows[data-list]").forEach(function (box) {
+    var name = box.dataset.list, min = +box.dataset.min || 1, ph1 = box.dataset.ph1, ph2 = box.dataset.ph2;
+    var data = [];
+    try { data = JSON.parse(get("list:" + name) || "[]"); } catch (e) { data = []; }
+    if (!Array.isArray(data)) data = [];
+    data = data.map(function (r) { return Array.isArray(r) ? [String(r[0] || ""), String(r[1] || "")] : ["", ""]; });
+    while (data.length < min) data.push(["", ""]);
+    function save() { put("list:" + name, JSON.stringify(data)); }
+    function render(focusIdx) {
+      box.textContent = "";
+      data.forEach(function (r, i) {
+        var row = document.createElement("div");
+        row.className = "rowline";
+        [0, 1].forEach(function (j) {
+          var inp = document.createElement("input");
+          inp.type = "text"; inp.id = name + "-" + i + "-" + j;
+          inp.placeholder = j ? ph2 : ph1;
+          inp.setAttribute("aria-label", (j ? ph2 : ph1) + ", строка " + (i + 1));
+          inp.value = r[j];
+          inp.addEventListener("input", function () { data[i][j] = inp.value; save(); });
+          row.appendChild(inp);
+        });
+        if (i >= min) {
+          var rm = document.createElement("button");
+          rm.type = "button"; rm.className = "rm"; rm.textContent = "×";
+          rm.setAttribute("aria-label", "Убрать строку " + (i + 1));
+          rm.addEventListener("click", function () { data.splice(i, 1); save(); render(); });
+          row.appendChild(rm);
+        }
+        box.appendChild(row);
+      });
+      if (focusIdx != null) { var f = document.getElementById(name + "-" + focusIdx + "-0"); if (f) f.focus(); }
+    }
+    render();
+    var add = document.querySelector('[data-add="' + name + '"]');
+    if (add) add.addEventListener("click", function () { data.push(["", ""]); save(); render(data.length - 1); });
+  });
+
+  /* компактный вид */
+  var cb = document.getElementById("btn-compact");
+  cb.addEventListener("click", function () {
+    var on = document.body.classList.toggle("compact");
+    cb.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+
+  /* копирование плана текстом */
+  function buildText() {
+    var out = [document.querySelector("h1").textContent.toUpperCase(), ""];
+    out.push("[112] " + document.querySelector(".urgent span").innerText.trim());
+    document.querySelectorAll(".step").forEach(function (st, n) {
+      out.push("", (n + 1) + ". " + st.querySelector("h2").textContent.trim());
+      st.querySelectorAll(".card").forEach(function (card) {
+        Array.prototype.forEach.call(card.children, function (el) {
+          if (el.tagName === "H3") out.push(el.textContent.trim() + ":");
+          else if (el.tagName === "TEXTAREA") out.push(el.value.trim() || "—");
+          else if (el.classList.contains("rows")) {
+            var any = false;
+            el.querySelectorAll(".rowline").forEach(function (r) {
+              var v = r.querySelectorAll("input"), a = v[0].value.trim(), b = v[1].value.trim();
+              if (a || b) { any = true; out.push("• " + [a, b].filter(Boolean).join(" — ")); }
+            });
+            if (!any) out.push("—");
+          }
+        });
+      });
+    });
+    out.push("", "ТЕЛЕФОНЫ ДОВЕРИЯ И ПОМОЩЬ");
+    document.querySelectorAll(".group").forEach(function (g) {
+      out.push("", g.querySelector("h3").textContent.trim());
+      g.querySelectorAll(".row").forEach(function (r) {
+        var who = r.querySelector(".who").textContent.trim();
+        var tel = Array.prototype.map.call(r.querySelectorAll(".tel a, .tel span"), function (x) { return x.textContent.trim(); }).join(", ");
+        out.push("• " + who + ": " + tel);
+      });
+    });
+    return out.join("\n");
+  }
+  var btn = document.getElementById("btn-copy"), fb = document.getElementById("copy-fallback"), outTa = document.getElementById("copy-out");
+  btn.addEventListener("click", function () {
+    var text = buildText();
+    function manual() { outTa.value = text; fb.hidden = false; outTa.focus(); outTa.select(); }
+    try {
+      navigator.clipboard.writeText(text).then(function () {
+        fb.hidden = true; btn.textContent = "Скопировано";
+        setTimeout(function () { btn.textContent = "Скопировать план как текст"; }, 2000);
+      }, manual);
+    } catch (e) { manual(); }
+  });
+})();
+</script>
+
+</body></html>
