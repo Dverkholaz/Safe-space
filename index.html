@@ -116,7 +116,7 @@ textarea:focus-visible, input:focus-visible, .chip:focus-visible, a:focus-visibl
 /* телефоны */
 .help { display: flex; flex-direction: column; gap: 8px; }
 .help h2 { font-size: 17px; }
-.groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 8px; align-items: start; }
+.groups { display: flex; flex-direction: column; gap: 8px; }
 .group { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 12px 4px; }
 .group h3 { font-size: 13.5px; font-family: var(--font-body); font-weight: 600; color: var(--accent); padding: 9px 0 4px; }
 .row { display: flex; justify-content: space-between; gap: 2px 14px; flex-wrap: wrap; padding: 6px 0; border-top: 1px solid var(--line); font-size: 13px; line-height: 1.4; }
@@ -166,16 +166,10 @@ body.compact .step::before { display: none; }
 body.compact .step-body { padding-top: 6px; }
 body.compact textarea { min-height: 40px; }
 
-/* широкий экран: шаги в две колонки, чтобы всё помещалось на один экран */
+/* широкий экран: та же одна колонка, чуть крупнее */
 @media (min-width: 900px) {
-  .page { max-width: 1120px; }
-  .steps { display: block; column-count: 2; column-gap: 28px; }
-  .step { break-inside: avoid; margin-bottom: 20px; }
-  .step::before { display: none; }
-  .step-body { margin-left: 0; }
-  .grid { grid-template-columns: 1fr; }
-  .howto { grid-template-columns: repeat(3, 1fr); }
-  .groups { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .page { max-width: 760px; }
+  body { font-size: 15px; }
 }
 
 /* печать и PDF */
